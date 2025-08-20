@@ -1,0 +1,51 @@
+weights: work_dir/crossclr_3views/1_mixed_kinectground+smplx_xview_frame50_channel16_epoch300_cross150/epoch150_model.pt
+work_dir: embeddings/extractor_work_dir
+
+# model
+model: net.crossclr_3views.CrosSCLR
+model_args:
+  base_encoder: net.st_gcn_flex.FlexModel
+  skeletons:
+  - ntu-rgb+d
+  - smplx_42
+  plot_interval: 10
+  embeddings_per_batch: 128
+  pretrain: True
+  feature_dim: 128
+  queue_size: 32768
+  momentum: 0.999
+  Temperature: 0.07
+  mlp: True
+  in_channels: 3
+  hidden_channels: 16 # TODO: Check whether this is correct for two views, can't find anything in the paper...
+  hidden_dim: 256
+  num_class: 60
+  dropout: 0.5
+  graph_args:
+    layout: 'ntu-rgb+d'
+    strategy: 'spatial'
+  edge_importance_weighting: True
+
+# optim
+nesterov: False
+weight_decay: 1e-4
+base_lr: 0.1
+optimizer: SGD
+step: [250]
+
+# training
+device: cpu
+batch_size: 128
+test_batch_size: 128
+num_epoch: 300
+start_epoch: 0
+
+# cross training
+topk: 1
+view: 'all'
+cross_epoch: 150
+context: True
+
+# log
+save_interval: 5
+eval_interval: -1
