@@ -1,1 +1,208 @@
-My GitHub Page
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="MS-CLR: Multi-Skeleton Contrastive Learning for Human Action Recognition">
+    <meta name="keywords"
+          content="MS-CLR, skeleton-based action recognition, contrastive learning, ST-GCN, self-supervised">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="robots" content="index, follow">
+    <title>MS-CLR: Multi-Skeleton Contrastive Learning</title>
+
+    <!-- Google Fonts (optional) -->
+    <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro" rel="stylesheet">
+
+    <!-- Bulma CSS -->
+    <link rel="stylesheet" href="./static/css/bulma.min.css">
+    <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
+
+    <!-- Icons -->
+    <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="./static/css/index.css">
+</head>
+<body>
+
+<!-- Hero / Title -->
+<section class="hero">
+    <div class="hero-body">
+        <div class="container is-max-desktop">
+            <div class="columns is-centered">
+                <div class="column has-text-centered">
+                    <h1 class="title is-1 publication-title">MS-CLR: Multi‑Skeleton Contrastive Learning<br>for Human
+                        Action Recognition</h1>
+
+                    <div class="is-size-5 publication-authors">
+                        <span class="author-block">Mert Kiray<sup>1,2</sup>,</span>
+                        <span class="author-block">Alvaro Ritter<sup>1</sup>,</span>
+                        <span class="author-block">Nassir Navab<sup>1</sup>,</span>
+                        <span class="author-block">Benjamin Busam<sup>1,2</sup></span>
+                    </div>
+                    <div class="is-size-5 publication-authors">
+                        <span class="author-block"><sup>1</sup>Technical University of Munich (TUM),</span>
+                        <span class="author-block"><sup>2</sup>3Dwe.ai</span>
+                    </div>
+
+                    <div class="column has-text-centered">
+                        <div class="publication-links" style="margin-top: 1rem;">
+                            <!-- arXiv PDF Link -->
+                            <span class="link-block">
+                <a href="."
+                   class="external-link button is-normal is-rounded is-dark" target="_blank">
+                  <span class="icon"><i class="ai ai-arxiv"></i></span>
+                  <span>arXiv</span>
+                </a>
+              </span>
+                            <!-- Code Link -->
+                            <span class="link-block">
+                <a href="https://github.com/3Dwe-ai/ms-clr"
+                   class="external-link button is-normal is-rounded is-dark" target="_blank">
+                  <span class="icon"><i class="fab fa-github"></i></span>
+                  <span>Code</span>
+                </a>
+              </span>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Teaser Section -->
+<section>
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column">
+        <figure class="image" style="margin: 0 auto; max-width: 1200px;">
+          <img src="./static/images/teaser.png" alt="MS-CLR Teaser" style="width: 100%; height: auto;">
+        </figure>
+        <h2 class="subtitle has-text-centered" style="margin-top: 1.5rem; margin-bottom: 1.5rem;">
+          <strong>MS-CLR</strong> introduces a self-supervised framework that aligns representations across
+            multiple skeleton formats extracted from the same video, enabling structure-invariant features that
+            generalize across datasets and pose conventions.
+        </h2>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Method Overview -->
+<section id="pipeline" class="section has-background-light">
+  <div class="container is-fluid">
+    <h3 class="title is-3 has-text-centered">Method Overview</h3>
+    <div class="content has-text-justified" style="max-width: 900px; margin: auto;">
+      <p>
+        <strong>MS-CLR</strong> is a self-supervised framework that learns structure-invariant representations by contrasting pose sequences across multiple skeleton conventions extracted from the same video.
+        It is built on top of a <strong>unified ST-GCN backbone</strong> that supports heterogeneous joint topologies via zero-padding and format-specific adjacency matrices.
+      </p>
+      <p>
+        During training, skeletons such as Kinectv2, SMPL-X, or Berkeley MHAD are treated as distinct views of the same action. These are passed through the encoder and contrasted using a multi-format InfoNCE loss, aligning features across structural variations like joint count, connectivity, and anatomical detail.
+      </p>
+      <p>
+        After pretraining, a linear classifier is trained on frozen representations to assess performance. Optionally, <strong>skeleton-specific classifiers</strong> are trained and ensembled to further improve accuracy by leveraging complementary structural cues.
+      </p>
+    </div>
+
+    <div class="has-text-centered">
+      <figure class="image" style="margin: 3rem auto 1rem auto; max-width: 1200px;">
+        <img src="./static/images/pipeline.png" alt="MS-CLR Pipeline Overview"
+             style="width: 100%; height: auto;">
+      </figure>
+      <p class="is-size-7 has-text-grey">
+        <i>Figure: MS-CLR contrasts pose embeddings from multiple skeleton formats—extracted from the same RGB sequence—using a unified ST-GCN encoder, encouraging structure-invariant representation learning.</i>
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- Abstract Section -->
+<section class="section">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Abstract</h2>
+        <div class="content has-text-justified">
+          <p>
+            Contrastive learning has gained significant attention in skeleton-based action recognition for its ability to learn robust representations from unlabeled data. However, existing methods rely on a single skeleton convention, which limits their ability to generalize across datasets with diverse joint structures and anatomical coverage.
+            We propose Multi-Skeleton Contrastive Learning (MS-CLR), a general self-supervised framework that aligns pose representations across multiple skeleton conventions extracted from the same sequence.
+            This encourages the model to learn structural invariances and capture diverse anatomical cues, resulting in more expressive and generalizable features.
+            To support this, we adapt the ST-GCN architecture to handle skeletons with varying joint layouts and scales through a unified representation scheme.
+            Experiments on the NTU RGB+D 60 and 120 datasets demonstrate that MS-CLR consistently improves performance over strong single-skeleton contrastive learning baselines.
+            A multi-skeleton ensemble further boosts performance, setting new state-of-the-art results on both datasets.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Results Summary -->
+<section class="section has-background-light">
+    <div class="container is-max-desktop">
+        <h2 class="title is-3 has-text-centered">Results on NTU RGB+D 60</h2>
+        <div class="content has-text-centered">
+            <p>
+                MS-CLR achieves state-of-the-art performance on NTU RGB+D 60 under both <i>cross-subject</i> and <i>cross-view</i>
+                protocols.
+            </p>
+            <table class="table is-bordered is-striped is-fullwidth is-hoverable">
+                <thead>
+                <tr>
+                    <th>Model</th>
+                    <th>X-Sub (%)</th>
+                    <th>X-View (%)</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>MS-AimCLR (joint)</td>
+                    <td>76.1</td>
+                    <td>83.0</td>
+                </tr>
+                <tr>
+                    <td>MS-AimCLR (motion)</td>
+                    <td>73.1</td>
+                    <td>80.4</td>
+                </tr>
+                <tr>
+                    <td>MS-AimCLR (bone)</td>
+                    <td>76.1</td>
+                    <td>82.2</td>
+                </tr>
+                <tr>
+                    <td><strong>3s-MS-AimCLR</strong></td>
+                    <td><strong>80.9</strong></td>
+                    <td><strong>86.7</strong></td>
+                </tr>
+                <tr>
+                    <td><strong>3s-MS-AimCLR (Ensemble)</strong></td>
+                    <td><strong>88.0</strong></td>
+                    <td><strong>94.2</strong></td>
+                </tr>
+                </tbody>
+            </table>
+            <p class="is-size-7 has-text-grey">
+                Evaluation follows the linear protocol on NTU RGB+D 60 under X-Sub and X-View splits. The ensemble
+                version averages predictions across skeleton-specific classifiers.
+            </p>
+        </div>
+    </div>
+</section>
+
+<!-- Footer -->
+<footer class="footer has-background-light">
+    <div class="content has-text-centered">
+        <p>&copy; 2025 MS-CLR Authors · Template adapted from <a href="https://nerfies.github.io/">Nerfies</a>.</p>
+    </div>
+</footer>
+
+<!-- JavaScript -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script defer src="./static/js/fontawesome.all.min.js"></script>
+<script src="./static/js/bulma-carousel.min.js"></script>
+</body>
+</html>
